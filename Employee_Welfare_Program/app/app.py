@@ -44,6 +44,9 @@ def reimburse():
     st.success(f"Hello, {user_name}! Claim your expense by submitting the invoice.")
 
 def chat_bot():
+    """
+    Chat agent
+    """
     left, right = st.columns([8,2])
     with left:    
         # Chat assistant window
