@@ -1,0 +1,30 @@
+{
+    "provider": "openai",
+    "openai": {
+        "llm_model": "openai_gpt4o_mini",
+        "embed_model": "openai_text_embedding_3_small"
+    },
+    "ollama": {
+        "llm_model": "mistral",
+        "embed_model": ""
+    },
+    "vector_store": {
+        "type": "faiss",
+        "local": {
+            "faiss_path": "vectorstores/faiss_index"
+        }
+    },
+    "retriever": {
+        "type": "base",
+        "top_k": 1
+    },
+    "policy_path": "C:/Users/MHPB/OneDrive - Novo Nordisk/Desktop/Python_Testing/Employee_Welfare_Program/data/Policy.docx",
+    "order_history": "C:/Users/MHPB/OneDrive - Novo Nordisk/Desktop/Python_Testing/Employee_Welfare_Program/data/Order_History.xlsx",
+    "products_DB": "C:/Users/MHPB/OneDrive - Novo Nordisk/Desktop/Python_Testing/Employee_Welfare_Program/data/Products_DB.xlsx",
+    "chat_history": "C:/Users/MHPB/OneDrive - Novo Nordisk/Desktop/Python_Testing/Employee_Welfare_Program/data/chat_history.json",
+    "cart_path": "C:/Users/MHPB/OneDrive - Novo Nordisk/Desktop/Python_Testing/Employee_Welfare_Program/data/cart.json",
+    "points_allocated": 25000,
+    "points_utilised": 1500,
+    "points_available": 23500,
+    "employee": "Muhammed Riyas"
+}
