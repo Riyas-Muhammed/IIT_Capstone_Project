@@ -23,14 +23,15 @@ sys.path.insert(0, str(Path.cwd()))
 from modules.llm import get_llm
 from prompts.chat_prompt import system_prompt
 
-config_path = Path.cwd() / "config" / "config.json"
+config_path = Path(__file__).parent.parent / "config" / "config.json"
 with open(config_path, "r") as f:
     config = json.load(f)
 
+chat_history_path = Path(__file__).parent.parent / config["chat_history"]
+
 def load_memmory():
     try:
-        memory_path = config["chat_history"]
-        with open(memory_path, "r") as f:
+        with open(chat_history_path, "r") as f:
             memmory = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         memmory = []
@@ -47,11 +48,11 @@ def load_chat_history():
 def update_chat_memmory(conversation: dict):
     memmory = load_memmory()
     memmory.append(conversation)
-    with open(config["chat_history"], "w") as f:
+    with open(chat_history_path, "w") as f:
         json.dump(memmory, f, indent=4)
-    
+
 def clear_chat_hisrory():
-    with open(config["chat_history"], "w") as f:
+    with open(chat_history_path, "w") as f:
         json.dump([], f, indent=4)
     
 
