@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-config_path = Path.cwd() / "config" / "config.json"
+config_path = Path(__file__).parent.parent / "config" / "config.json"
 with open(config_path, "r") as f:
     config = json.load(f)
 

@@ -31,12 +31,12 @@ from modules.embedder import build_or_update_vectorstore
 from modules.retriever import get_retriever
 from modules.llm import get_llm
 
-config_path = Path.cwd() / "config" / "config.json"
+config_path = Path(__file__).parent.parent / "config" / "config.json"
 with open(config_path, "r") as f:
     config = json.load(f)
 
 try:
-    memory_path = Path.cwd() / "data" / "chat_history.json"
+    memory_path = Path(__file__).parent.parent / "data" / "chat_history.json"
     with open(memory_path, "r") as f:
         memmory = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
@@ -123,7 +123,7 @@ def run_chat():
         category = get_category(memmory, provider)
 
         if category == "Policy":
-            docs = load_document(config["policy_path"])
+            docs = load_document(str(Path(__file__).parent.parent / config["policy_path"]))
             chunks = split_documents(docs)
             vectorstore = build_or_update_vectorstore(chunks, config)
             retriever = get_retriever(vectorstore, config)
@@ -132,11 +132,11 @@ def run_chat():
             order_history = None
             products = None
         elif category == "Order History":
-            order_history = pd.read_excel(config["order_history"])
+            order_history = pd.read_excel(Path(__file__).parent.parent / config["order_history"])
             context = None
             products = None
         elif category == "Products":
-            products = pd.read_excel(config["products_DB"])
+            products = pd.read_excel(Path(__file__).parent.parent / config["products_DB"])
             context = None
             order_history = None
         else:

@@ -8,14 +8,14 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 def marketplace_items():
-    config_path = Path.cwd() / "config" / "config.json"
+    config_path = Path(__file__).parent.parent / "config" / "config.json"
     with open(config_path, "r") as f:
         config = json.load(f)
 
     user_name = config.get('employee')
     points = config.get('points_available')
-    data_path = Path(config["products_DB"])
-    cart_path = Path(config["cart_path"])
+    data_path = Path(__file__).parent.parent / config["products_DB"]
+    cart_path = Path(__file__).parent.parent / config["cart_path"]
 
     def get_cart():
         if cart_path.exists() and cart_path.stat().st_size > 0:
@@ -122,14 +122,17 @@ def marketplace_items():
         if "cart_product" not in st.session_state:
                     st.session_state.cart_product = None
 
-        COLS_PER_ROW = 3
+        COLS_PER_ROW = 4
         rows = [df.iloc[i:i+COLS_PER_ROW] for i in range(0, len(df), COLS_PER_ROW)]
 
         for row in rows:
             cols = st.columns(COLS_PER_ROW)
             for col, (_, product) in zip(cols, row.iterrows()):
                 with col:
-                    img_path = Path(str(product["Image path"]).strip())
+                    raw_path = str(product["Image path"]).strip()
+                    img_path = Path(raw_path)
+                    if not img_path.is_absolute():
+                        img_path = Path(__file__).parent.parent / img_path
                     if img_path.exists():
                         st.image(str(img_path), use_container_width=False)
                     else:

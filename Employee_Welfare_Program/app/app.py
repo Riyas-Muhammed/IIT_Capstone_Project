@@ -17,11 +17,11 @@ sys.path.insert(0, str(Path.cwd()))
 from agents.chat import load_chat_history, get_response, update_chat_memmory, clear_chat_hisrory
 
 
-config_path = Path.cwd() / "config" / "config.json"
+config_path = Path(__file__).parent.parent / "config" / "config.json"
 with open(config_path, "r") as f:
     config = json.load(f)
 
-cart_path = Path(config["cart_path"])
+cart_path = Path(__file__).parent.parent / config["cart_path"]
 user_name = config.get('employee')
 points = config.get('points_available')
 
@@ -44,6 +44,9 @@ def reimburse():
     st.success(f"Hello, {user_name}! Claim your expense by submitting the invoice.")
 
 def chat_bot():
+    """
+    Chat agent
+    """
     left, right = st.columns([8,2])
     with left:    
         # Chat assistant window

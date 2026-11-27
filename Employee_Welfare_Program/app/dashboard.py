@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from pathlib import Path
 
 def dashboard_visuals():
-    config_path = Path.cwd() / "config" / "config.json"
+    config_path = Path(__file__).parent.parent / "config" / "config.json"
     with open(config_path, "r") as f:
         config = json.load(f)
 
@@ -39,7 +39,7 @@ def dashboard_visuals():
     )
 
     # Points utilisation on monthly in Bar chart
-    order_path = Path(config["order_history"])
+    order_path = Path(__file__).parent.parent / config["order_history"]
     months = ["January","February","March","April","May","June",
               "July","August","September","October","November","December"]
     monthly_totals = {m: 0 for m in months}
